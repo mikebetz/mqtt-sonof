@@ -1,7 +1,9 @@
-# mqtt-sonof
+# mqtt-sonoff
 code for esp8266 projects, including home automation, using sonof relays and mqtt broker
 
-intended to be fairly generic (within the SONOF hardware). Logic is intended to happen elsewhere, communicated via MQTT topics. 
+https://www.itead.cc/smart-home/sonoff-wifi-wireless-switch.html
+
+intended to be fairly generic (within the SONOFF hardware). Logic is intended to happen elsewhere, communicated via MQTT topics. 
 intended for use with Node-Red (but Node-Red is not required)
 Anything else that can write/read to an MQTT broker would work.
 
