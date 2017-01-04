@@ -12,26 +12,12 @@ void read_temperature() {
    float t_f;
    float r_h;
 
-   /*
-   int i;
-   Serial.print("<");
-   for (i=0; i<100; i++) {
-     Serial.print( digitalRead(pinTemperature));
-   }
-   Serial.println(">");
-   */
-
    t_f = dht.readTemperature(true);
 
 
-
    // Check if any reads failed and exit early (to try again).
-   //if (isnan(h) || isnan(t) || isnan(f)) {
    if (isnan(t_f)) {
      Serial.println("Could not read temp");
-     //new_temperature = old_temperature;
-     //new_humidity = old_humidity;
-     //new_heatIndex = old_heatIndex;
      return;
    }
 
@@ -41,9 +27,6 @@ void read_temperature() {
 
    if (isnan(r_h)) {
      Serial.println("Could not read humidity");
-     //new_temperature = old_temperature;
-     //new_humidity = old_humidity;
-     //new_heatIndex = old_heatIndex;
      return;
    }
 

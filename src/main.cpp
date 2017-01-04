@@ -92,8 +92,6 @@ void setup() {
 
   randomSeed(micros());
 
-//  pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
-
   Serial.begin(115200);
 
   pinMode ( pinRelay, OUTPUT ); // mgb added

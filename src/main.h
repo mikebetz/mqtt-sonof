@@ -29,7 +29,7 @@ extern "C" {
 
 // saved parameters
 char mqtt_server[40];
-char mqtt_port[6] = "1883";
+char mqtt_port[6] = "1883"; // not used yet
 char device_role[10] = ""; // FAN or SWITCH
 char mqtt_nickname[20]; // example "Fan02";
 // end saved parameters
@@ -69,7 +69,7 @@ const int pinLED = 13; // output
 const int pinRelay = 12; // output
 const int pinRunMode = 0; // input
 
-#define DHTPIN 14     // what digital pin we're connected to. perhaps 14 or 4
+#define DHTPIN 14     // what pin for temperature
 const int pinTemperature = DHTPIN; // input
 
 // Uncomment whatever type you're using!
