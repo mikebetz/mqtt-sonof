@@ -1,9 +1,11 @@
 # mqtt-sonof
 code for esp8266 projects, including home automation, using sonof relays and mqtt broker
 
-
+intended to be fairly generic (within the SONOF hardware). Logic is intended to happen elsewhere, communicated via MQTT topics. 
 intended for use with Node-Red (but Node-Red is not required)
-MQTT topics used for setting relay status and optionally getting temperature/humidity
+Anything else that can write/read to an MQTT broker would work.
+
+MQTT topics are used for opening/closing the relay and optionally getting temperature/humidity
 
 Configuration
 
@@ -23,18 +25,6 @@ Short press on button to toggle relay manually.
 
 Long press to wipe the wifimanager settings and reboot (to allow reconfiguration of wifi and other settings)
 
-issues:
+Issues:
 
-It's my first github project. I'm sure there are lots of stylistic issues. Including ... issues are listed here instead of Issues.
-
-does not actually use the port number for the mqtt broker. Currently hard-coded as 1883 (for Mosca)
-
-pin numbers for relay and temperature are hard-coded
-
-device type for temperature sensor is hard-coded DHT22
-
-frequency of temperature reading is hard-coded
-
-reset after long-press is not clean ... requires toggling the power to recover
-
-lots of dead code to clean up (pre-github)
+It's my first github project. I'm sure there are lots of stylistic issues. 
