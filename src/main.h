@@ -28,11 +28,10 @@ extern "C" {
 #include <string.h>
 
 // saved parameters
-//const char* mqtt_server = "192.168.1.27";
 char mqtt_server[40];
 char mqtt_port[6] = "1883";
-char device_role[10] = ""; // FAN SWITCH
-char mqtt_nickname[20]; // = "Fan02";
+char device_role[10] = ""; // FAN or SWITCH
+char mqtt_nickname[20]; // example "Fan02";
 // end saved parameters
 
 //flag for saving data
@@ -48,23 +47,10 @@ bool longPressActive = false;
 
 int useDHT = 0;
 
-// mac address in hh:hh:etc
-// set by setup_wifi
-//char macaddr[20];
-//char NICKNAME_FEED[30];
-
-// the nickname feed is of form hh:hh:hh...hh/nickname
-// and contains the first part of the topics ... example Fan02
-// this will be combined with - and a suffix
-// example Fan02-Power
-
-// replaceable constants
-
-//const char TEMPERATURE_FEED[]  = "Fan02-Temperature"; // pub
-//const char HUMIDITY_FEED[]  = "Fan02-Humidity"; // pub
-//const char POWER_FEED[]  =  "Fan02-Power"; // sub
-
-//int mqtt_ready_to_pub = 0;
+// broker topics will be the nickname dash suffix
+// if Fan02 is the nickname
+// one of the topics would be
+// Fan02-Power
 
 #define POWER_FEED_SUFFIX "Power"
 #define TEMPERATURE_FEED_SUFFIX "Temperature"
@@ -79,9 +65,9 @@ char HUMIDITY_FEED[100];  //= "Fan02-Humidity"; // pub
 int enableSerial = 1; // 0 none, 1 errors & startup, 2 verbose
 
 // Pins
-const int pinLED = 13; // output was 5
+const int pinLED = 13; // output
 const int pinRelay = 12; // output
-const int pinRunMode = 0;
+const int pinRunMode = 0; // input
 
 #define DHTPIN 14     // what digital pin we're connected to. perhaps 14 or 4
 const int pinTemperature = DHTPIN; // input
@@ -93,25 +79,6 @@ const int pinTemperature = DHTPIN; // input
 
 // end of normally-replaceable constants
 
-
-
-/*
-typedef struct  {
-
-  int fan_mode; // 0 = off, 1 = on, 2 = auto
-  int temp_on;
-  int temp_off;
-
-} configStruct;
-
-configStruct myConfig;
-*/
-
-/*
-int FAN_MODE_OFF = 0;
-int FAN_MODE_ON = 1;
-int FAN_MODE_AUTO = 2;
-*/
 
 int current_relay_power = 0;
 int RELAY_POWER_ON = 1;
@@ -125,14 +92,6 @@ float new_heatIndex;
 int old_temperature = -1000;
 float old_humidity;
 float old_heatIndex;
-
-//int old_fan_power;
-
-//int new_fan_power;
-
-
-
-//int FAN_POWER_COOLDOWN = 2;
 
 
 const int LEDOn = 0;

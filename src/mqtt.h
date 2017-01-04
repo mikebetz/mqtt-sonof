@@ -15,32 +15,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println((char *)payload);
 
 
-  /*
-  if ( !strcmp(topic, NICKNAME_FEED) ) {
-    Serial.println("NICKNAME ");
-    // calculate power feed, subscribe
-    strcpy(mqtt_nickname, (char *)payload);
-    strcat(mqtt_nickname, "-");
-
-    // set mqtt_topic_root ... somewhere?
-    // may have to move the following
-
-    strcpy(POWER_FEED, mqtt_nickname);
-    strcat(POWER_FEED, POWER_FEED_SUFFIX);
-
-    strcpy(TEMPERATURE_FEED, mqtt_nickname);
-    strcat(TEMPERATURE_FEED, TEMPERATURE_FEED_SUFFIX);
-
-    strcpy(HUMIDITY_FEED, mqtt_nickname);
-    strcat(HUMIDITY_FEED, HUMIDITY_FEED_SUFFIX);
-
-    mqtt_client.subscribe(POWER_FEED);
-
-    mqtt_ready_to_pub = 1;
-
-  }
-  */
-
   if ( !strcmp(topic, POWER_FEED) ) {
     z_value = atoi( (char *)payload );
     Serial.print("POWER ");
@@ -48,8 +22,6 @@ void callback(char* topic, byte* payload, unsigned int length) {
     relay_power(z_value);
   }
 
-  // test first char
-  // (char)payload[0] == '1'
 
 }
 
@@ -79,16 +51,11 @@ void mqtt_reconnect() {
     // Attempt to connect
     if (mqtt_client.connect(clientId.c_str())) {
       Serial.println("connected");
+
       // Once connected, publish an announcement...
       //my_publish("outTopic", "hello world");
+
       // ... and resubscribe
-
-      //strcpy(NICKNAME_FEED, macaddr);
-      //strcat(NICKNAME_FEED, "/nickname");
-      //Serial.print("nickname feed ");
-      //Serial.println(NICKNAME_FEED);
-
-      //mqtt_client.subscribe(NICKNAME_FEED);
 
       mqtt_client.subscribe(POWER_FEED);
 

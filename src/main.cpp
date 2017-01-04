@@ -8,6 +8,8 @@
 
 #include "network.h"
 
+// set variables based on device_role
+// currently, only 1 feature to set
 void setFeaturesFromRole() {
   Serial.print("role is ");
   Serial.println(device_role);
@@ -88,7 +90,6 @@ void readconfig() {
 
 void setup() {
 
-
   randomSeed(micros());
 
 //  pinMode(BUILTIN_LED, OUTPUT);     // Initialize the BUILTIN_LED pin as an output
@@ -128,6 +129,7 @@ void setup() {
 
 void loop() {
 
+  // button-press logic
   // adapted from http://www.instructables.com/id/Arduino-Dual-Function-Button-Long-PressShort-Press
   // is button down? !read
   if ( !digitalRead(pinRunMode) ) {
@@ -184,14 +186,19 @@ void loop() {
 
   } // button was up
 
+
+  // reconnect to MQTT if necessary
   if (!mqtt_client.connected()) {
     mqtt_reconnect(); // subscribe happens here
   }
 
+  // handle subscription changes
   mqtt_client.loop();
 
+  // handle OTA
   ArduinoOTA.handle();
 
+  // periodically read and send temperature
   if ( useDHT ) {
     // check temp
     if ( millis() - readTempLastMS > readTempLastMax or millis() < readTempLastMS ) {
