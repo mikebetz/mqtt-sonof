@@ -25,10 +25,16 @@ Long press to wipe the wifimanager settings and reboot (to allow reconfiguration
 
 issues:
 
-It's my first github project
+It's my first github project. I'm sure there are lots of stylistic issues. Including ... issues are listed here instead of Issues.
+
 does not actually use the port number for the mqtt broker. Currently hard-coded as 1883 (for Mosca)
+
 pin numbers for relay and temperature are hard-coded
+
 device type for temperature sensor is hard-coded DHT22
+
 frequency of temperature reading is hard-coded
+
 reset after long-press is not clean ... requires toggling the power to recover
+
 lots of dead code to clean up (pre-github)
