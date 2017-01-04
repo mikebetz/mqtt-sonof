@@ -18,6 +18,8 @@ void setFeaturesFromRole() {
   } else {
     useDHT = 0;
   }
+
+  mqtt_port_int = atoi(mqtt_port);
 }
 
 
@@ -111,7 +113,7 @@ void setup() {
 
   setup_wifi(); // network.h
 
-  mqtt_client.setServer(mqtt_server, 1883);
+  mqtt_client.setServer(mqtt_server, mqtt_port_int); // was 1883
   mqtt_client.setCallback(callback); // callback is in mqtt.h
 
   current_relay_power = 0;
@@ -121,6 +123,7 @@ void setup() {
   //mqtt_client.loop();
 
   set_LED(1 - LEDOn ); // turn LED off -- led.h
+
 
 }
 
@@ -168,6 +171,7 @@ void loop() {
 			} else {
         // short press ended
         Serial.println("short press end");
+        Serial.println("version 2017-01-04 C");
         relay_power( 1 - current_relay_power);
 
         if (mqtt_client.connected() ) {
@@ -184,6 +188,9 @@ void loop() {
 
   } // button was up
 
+  // handle OTA
+  ArduinoOTA.handle();
+
 
   // reconnect to MQTT if necessary
   if (!mqtt_client.connected()) {
@@ -193,8 +200,6 @@ void loop() {
   // handle subscription changes
   mqtt_client.loop();
 
-  // handle OTA
-  ArduinoOTA.handle();
 
   // periodically read and send temperature
   if ( useDHT ) {

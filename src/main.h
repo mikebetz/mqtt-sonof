@@ -34,13 +34,15 @@ char device_role[10] = ""; // FAN or SWITCH
 char mqtt_nickname[20]; // example "Fan02";
 // end saved parameters
 
+int mqtt_port_int = 1883;
+
 //flag for saving data
 bool shouldSaveConfig = false;
 
 
 // long/short button press
 long buttonTimer = 0;
-long longPressTime = 20000;
+long longPressTime = 10000; // 10 seconds
 bool buttonActive = false;
 bool longPressActive = false;
 
