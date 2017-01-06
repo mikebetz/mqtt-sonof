@@ -49,13 +49,6 @@ void readconfig() {
         if (json.success()) {
           Serial.println("parsed json");
 
-          if ( json.containsKey("mqtt_server") ) {
-            Serial.println("has server");
-          }
-
-          if ( json.containsKey("mqtt_serverX") ) {
-            Serial.println("has serverX");
-          }
 
           if ( json.containsKey("mqtt_server") ) {
             strcpy(mqtt_server, json["mqtt_server"]);
