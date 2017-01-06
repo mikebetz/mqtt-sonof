@@ -30,3 +30,8 @@ Long press to wipe the wifimanager settings and reboot (to allow reconfiguration
 Issues:
 
 It's my first github project. I'm sure there are lots of stylistic issues. 
+
+Credits
+
+https://github.com/tzapu/SonoffBoilerplate
+
