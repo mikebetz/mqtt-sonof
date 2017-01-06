@@ -49,23 +49,31 @@ void readconfig() {
         if (json.success()) {
           Serial.println("parsed json");
 
-          if ( json["mqtt_server"].success()) {
+          if ( json.containsKey("mqtt_server") ) {
+            Serial.println("has server");
+          }
+
+          if ( json.containsKey("mqtt_serverX") ) {
+            Serial.println("has serverX");
+          }
+
+          if ( json.containsKey("mqtt_server") ) {
             strcpy(mqtt_server, json["mqtt_server"]);
             Serial.print("server is ");
             Serial.println(mqtt_server);
           }
 
-          if ( json["mqtt_port"].success()) {
+          if ( json.containsKey("mqtt_port") ) {
             strcpy(mqtt_port, json["mqtt_port"]);
           }
 
-          if ( json["device_role"].success()) {
+          if ( json.containsKey("device_role") ) {
             strcpy(device_role, json["device_role"]);
             Serial.print("role is ");
             Serial.println(device_role);
           }
 
-          if ( json["mqtt_nickname"].success()) {
+          if ( json.containsKey("mqtt_nickname") ) {
             strcpy(mqtt_nickname, json["mqtt_nickname"]);
             Serial.print("nickname is ");
             Serial.println(mqtt_nickname);
@@ -163,15 +171,17 @@ void loop() {
         wifiManager.resetSettings();
 
         Serial.println("reset");
-        delay(3000);
-        ESP.reset();
         delay(5000);
-        return; // do not try to process anything else in this loop()
+        ESP.reset();
+        delay(2000);
+        while (1) {
+          // spin until reset
+        }
 
 			} else {
         // short press ended
         Serial.println("short press end");
-        Serial.println("version 2017-01-04 C");
+        Serial.println("version E 2017-01-04");
         relay_power( 1 - current_relay_power);
 
         if (mqtt_client.connected() ) {

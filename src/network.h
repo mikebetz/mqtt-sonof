@@ -84,9 +84,12 @@ void setup_wifi() {
 
   if (!wifiManager.autoConnect()) {
     Serial.println("failed to connect, reset");
-    delay(3000);
-    ESP.reset();
     delay(5000);
+    ESP.reset();
+    delay(2000);
+    while (1) {
+      // spin until reset
+    };
   }
 
   Serial.println("local ip");
@@ -164,7 +167,7 @@ void setup_wifi() {
   strcat(HUMIDITY_FEED, HUMIDITY_FEED_SUFFIX);
 
   setFeaturesFromRole();
-  
+
   startOTA();
 
 }
