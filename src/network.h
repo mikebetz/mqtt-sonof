@@ -69,6 +69,9 @@ void setup_wifi() {
   WiFiManagerParameter custom_pinRelay("Relaypin", "Relay pin 12", ch_pinRelay, 3);
   WiFiManagerParameter custom_pinButton("ButtonPin", "Button pin 0", ch_pinButton, 3);
 
+  WiFiManagerParameter custom_pinTemperature("TemperaturePin", "Temp Sensor Pin 14", ch_pinTemperature, 3);
+  WiFiManagerParameter custom_DHTType("DHTType", "DHTType 11 21 22", ch_DHTType, 3);
+
   //add all your parameters here
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
@@ -78,6 +81,9 @@ void setup_wifi() {
   wifiManager.addParameter(&custom_pinLED);
   wifiManager.addParameter(&custom_pinRelay);
   wifiManager.addParameter(&custom_pinButton);
+
+  wifiManager.addParameter(&custom_pinTemperature);
+  wifiManager.addParameter(&custom_DHTType);
 
   //reset settings - for testing
   //wifiManager.resetSettings();
@@ -138,6 +144,9 @@ void setup_wifi() {
   strcpy(ch_pinRelay, custom_pinRelay.getValue());
   strcpy(ch_pinButton, custom_pinButton.getValue());
 
+  strcpy(ch_pinTemperature, custom_pinTemperature.getValue());
+  strcpy(ch_DHTType, custom_DHTType.getValue());
+
   Serial.print("server is now ");
   Serial.println(mqtt_server);
 
@@ -154,6 +163,9 @@ void setup_wifi() {
     json["pinLED"] = ch_pinLED;
     json["pinRelay"] = ch_pinRelay;
     json["pinButton"] = ch_pinButton;
+
+    json["pinTemperature"] = ch_pinRelay;
+    json["DHTType"] = ch_DHTType;
 
   ////    json["blynk_token"] = blynk_token;
 

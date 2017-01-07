@@ -12,7 +12,7 @@ void read_temperature() {
    float t_f;
    float r_h;
 
-   t_f = dht.readTemperature(true);
+   t_f = dht->readTemperature(true);
 
 
    // Check if any reads failed and exit early (to try again).
@@ -23,7 +23,7 @@ void read_temperature() {
 
    Serial.println(t_f);
 
-   r_h = dht.readHumidity();
+   r_h = dht->readHumidity();
 
    if (isnan(r_h)) {
      Serial.println("Could not read humidity");

@@ -43,7 +43,8 @@ char mqtt_nickname[20]; // example "Fan02";
 char ch_pinLED[3] = "13";
 char ch_pinRelay[3] = "12";
 char ch_pinButton[3] = "0";
-//char ch_pinTemperature[2] = "14";
+char ch_pinTemperature[3] = "14";
+char ch_DHTType[3] = "21"; // 21 for DHT21 or AM2301
 
 // end saved parameters
 
@@ -53,21 +54,29 @@ int mqtt_port_int = 1883;
 int pinLED = 13; // output
 int pinRelay = 12; // output
 int pinButton = 0; // input
+int pinTemperature = 14; // input, for temperature
+
+int DHTType = 21; // 21 for DHT21 or AM2301
 
 
 // temperature reading stuff
 
 int useDHT = 0;
 
-#define DHTPIN 14     // what pin for temperature
-int pinTemperature = DHTPIN; // input
+
 // Uncomment whatever type you're using!
 //#define DHTTYPE DHT11   // DHT 11
 //#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-#define DHTTYPE DHT21   // DHT 21 (AM2301) /// perhaps DHT22
+//#define DHTTYPE DHT21   // DHT 21 (AM2301)
 
-DHT dht(DHTPIN, DHTTYPE, 30); // , 11); // 11 is timing for esp8266-01
-//DHT dht(DHTPIN, DHTTYPE, 11); // , 11); // 11 is timing for esp8266-01
+
+//DHT dht(DHTPIN, DHTTYPE, 30); // , 11); // 11 is timing for esp8266-01
+
+//DHT dht(DHTPIN, DHTTYPE); // , 11); // 11 is timing for esp8266-01
+
+// instead of initializing here, postpone until we know for sure the pin and type
+//DHT dht(pinTemperature, dhtType); // , 11); // 11 is timing for esp8266-01
+DHT* dht;
 
 
 

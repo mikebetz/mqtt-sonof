@@ -25,12 +25,18 @@ void setFeaturesFromRole() {
   pinRelay = atoi(ch_pinRelay);
   pinButton = atoi(ch_pinButton);
 
+  pinTemperature = atoi(ch_pinTemperature);
+  DHTType = atoi(ch_DHTType);
+
   pinMode ( pinRelay, OUTPUT ); // mgb added
 
   pinMode( pinButton, INPUT);
 
   pinMode( pinLED, OUTPUT);
 
+  if ( useDHT ) {
+    dht = new DHT(pinTemperature, DHTType);
+  }
 
 }
 
@@ -102,6 +108,17 @@ void readconfig() {
             Serial.println(ch_pinButton);
           }
 
+          if ( json.containsKey("pinTemperature") ) {
+            strcpy(ch_pinTemperature, json["pinTemperature"]);
+            Serial.print("Temperature pin is ");
+            Serial.println(ch_pinTemperature);
+          }
+
+          if ( json.containsKey("DHTType") ) {
+            strcpy(ch_DHTType, json["DHTType"]);
+            Serial.print("DHT Type is ");
+            Serial.println(ch_DHTType);
+          }
 
           setFeaturesFromRole();
 
@@ -135,7 +152,8 @@ void setup() {
 
   if ( useDHT ) {
     if (enableSerial) Serial.println("setup:dht");
-    dht.begin();
+    //dht.begin();
+    dht->begin();
   }
 
   setup_wifi(); // network.h
