@@ -65,11 +65,19 @@ void setup_wifi() {
   WiFiManagerParameter custom_device_role("role", "role FAN or SWITCH", device_role, 10);
   WiFiManagerParameter custom_mqtt_nickname("nickname", "mqtt nickname", mqtt_nickname, 20);
 
+  WiFiManagerParameter custom_pinLED("LEDpin", "LED pin 13", ch_pinLED, 3);
+  WiFiManagerParameter custom_pinRelay("Relaypin", "Relay pin 12", ch_pinRelay, 3);
+  WiFiManagerParameter custom_pinButton("ButtonPin", "Button pin 0", ch_pinButton, 3);
+
   //add all your parameters here
   wifiManager.addParameter(&custom_mqtt_server);
   wifiManager.addParameter(&custom_mqtt_port);
   wifiManager.addParameter(&custom_device_role);
   wifiManager.addParameter(&custom_mqtt_nickname);
+
+  wifiManager.addParameter(&custom_pinLED);
+  wifiManager.addParameter(&custom_pinRelay);
+  wifiManager.addParameter(&custom_pinButton);
 
   //reset settings - for testing
   //wifiManager.resetSettings();
@@ -126,6 +134,10 @@ void setup_wifi() {
   strcpy(device_role, custom_device_role.getValue());
   strcpy(mqtt_nickname, custom_mqtt_nickname.getValue());
 
+  strcpy(ch_pinLED, custom_pinLED.getValue());
+  strcpy(ch_pinRelay, custom_pinRelay.getValue());
+  strcpy(ch_pinButton, custom_pinButton.getValue());
+
   Serial.print("server is now ");
   Serial.println(mqtt_server);
 
@@ -138,6 +150,11 @@ void setup_wifi() {
     json["mqtt_port"] = mqtt_port;
     json["device_role"] = device_role;
     json["mqtt_nickname"] = mqtt_nickname;
+
+    json["pinLED"] = ch_pinLED;
+    json["pinRelay"] = ch_pinRelay;
+    json["pinButton"] = ch_pinButton;
+
   ////    json["blynk_token"] = blynk_token;
 
     File configFile = SPIFFS.open("/config.json", "w");

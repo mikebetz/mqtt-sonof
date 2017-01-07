@@ -20,6 +20,18 @@ void setFeaturesFromRole() {
   }
 
   mqtt_port_int = atoi(mqtt_port);
+
+  pinLED = atoi(ch_pinLED);
+  pinRelay = atoi(ch_pinRelay);
+  pinButton = atoi(ch_pinButton);
+
+  pinMode ( pinRelay, OUTPUT ); // mgb added
+
+  pinMode( pinButton, INPUT);
+
+  pinMode( pinLED, OUTPUT);
+
+
 }
 
 
@@ -72,6 +84,25 @@ void readconfig() {
             Serial.println(mqtt_nickname);
           }
 
+          if ( json.containsKey("pinLED") ) {
+            strcpy(ch_pinLED, json["pinLED"]);
+            Serial.print("LED pin is ");
+            Serial.println(ch_pinLED);
+          }
+
+          if ( json.containsKey("pinRelay") ) {
+            strcpy(ch_pinRelay, json["pinRelay"]);
+            Serial.print("Relay pin is ");
+            Serial.println(ch_pinRelay);
+          }
+
+          if ( json.containsKey("pinButton") ) {
+            strcpy(ch_pinButton, json["pinButton"]);
+            Serial.print("Button pin is ");
+            Serial.println(ch_pinButton);
+          }
+
+
           setFeaturesFromRole();
 
           //strcpy(blynk_token, json["blynk_token"]);
@@ -97,15 +128,10 @@ void setup() {
 
   Serial.begin(115200);
 
-  pinMode ( pinRelay, OUTPUT ); // mgb added
+  readconfig();
 
-  pinMode( pinRunMode, INPUT);
-
-  pinMode( pinLED, OUTPUT);
-  if (enableSerial) Serial.println("setup:pinmode set_LED");
   set_LED( LEDOn ); // off
 
-  readconfig();
 
   if ( useDHT ) {
     if (enableSerial) Serial.println("setup:dht");
@@ -134,7 +160,7 @@ void loop() {
   // button-press logic
   // adapted from http://www.instructables.com/id/Arduino-Dual-Function-Button-Long-PressShort-Press
   // is button down? !read
-  if ( !digitalRead(pinRunMode) ) {
+  if ( !digitalRead(pinButton) ) {
 
     // button is down
 		if ( !buttonActive ) {
@@ -208,7 +234,7 @@ void loop() {
   if ( useDHT ) {
     // check temp
     if ( millis() - readTempLastMS > readTempLastMax or millis() < readTempLastMS ) {
-      read_temperature();
+      read_temperature(); // in fan.h
       readTempLastMS = millis();
     }
   }
