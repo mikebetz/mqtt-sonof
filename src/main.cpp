@@ -218,7 +218,7 @@ void loop() {
 			} else {
         // short press ended
         Serial.println("short press end");
-        Serial.println("version E 2017-01-04");
+        Serial.println("version F 2017-01-07");
         relay_power( 1 - current_relay_power);
 
         if (mqtt_client.connected() ) {
