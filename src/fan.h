@@ -21,16 +21,16 @@ void read_temperature() {
      return;
    }
 
-   Serial.println(t_f);
+   Serial.print(t_f);
 
    r_h = dht->readHumidity();
 
    if (isnan(r_h)) {
-     Serial.println("Could not read humidity");
+     Serial.println(" Could not read humidity");
      return;
    }
 
-   Serial.print("humidity ");
+   Serial.print(" humidity ");
    Serial.println(r_h);
 
 
