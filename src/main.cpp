@@ -35,6 +35,10 @@ void setFeaturesFromRole() {
   pinMode( pinLED, OUTPUT);
 
   if ( useDHT ) {
+    Serial.print("DHT Init: pin ");
+    Serial.print(pinTemperature);
+    Serial.print(" DHTType ");
+    Serial.println(DHTType);
     dht = new DHT(pinTemperature, DHTType);
   }
 

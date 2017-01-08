@@ -164,7 +164,7 @@ void setup_wifi() {
     json["pinRelay"] = ch_pinRelay;
     json["pinButton"] = ch_pinButton;
 
-    json["pinTemperature"] = ch_pinRelay;
+    json["pinTemperature"] = ch_pinTemperature;
     json["DHTType"] = ch_DHTType;
 
   ////    json["blynk_token"] = blynk_token;
