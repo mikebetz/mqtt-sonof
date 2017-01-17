@@ -13,6 +13,7 @@
 void setFeaturesFromRole() {
   Serial.print("role is ");
   Serial.println(device_role);
+
   if (!strcmp(device_role, "FAN") ) {
     useDHT = 1;
   } else {
@@ -28,11 +29,17 @@ void setFeaturesFromRole() {
   pinTemperature = atoi(ch_pinTemperature);
   DHTType = atoi(ch_DHTType);
 
-  pinMode ( pinRelay, OUTPUT ); // mgb added
+  if (pinRelay >= 0) {
+    pinMode ( pinRelay, OUTPUT ); // mgb added
+  }
 
-  pinMode( pinButton, INPUT);
+  if (pinButton >= 0) {
+    pinMode( pinButton, INPUT);
+  }
 
-  pinMode( pinLED, OUTPUT);
+  if (pinLED >= 0) {
+    pinMode( pinLED, OUTPUT);
+  }
 
   if ( useDHT ) {
     Serial.print("DHT Init: pin ");
@@ -151,7 +158,9 @@ void setup() {
 
   readconfig();
 
-  set_LED( LEDOn ); // off
+  ticker_control.attach(0.5, toggle_LED);
+
+  //set_LED( LEDOn ); // off
 
 
   if ( useDHT ) {
@@ -171,6 +180,8 @@ void setup() {
   mqtt_reconnect(); // establish MQTT for first time
   //mqtt_client.loop();
 
+  ticker_control.detach();
+
   set_LED(1 - LEDOn ); // turn LED off -- led.h
 
 
@@ -188,6 +199,8 @@ void loop() {
 		if ( !buttonActive ) {
 			buttonActive = true;
 			buttonTimer = millis();
+
+
 		}
 
 		if ( (millis() - buttonTimer > longPressTime) && !longPressActive ) {
@@ -206,6 +219,9 @@ void loop() {
 				longPressActive = false;
         // LONG PRESS ENDED
         Serial.println("long press end");
+
+        ticker_control.attach(0.3, toggle_LED);
+
         WiFiManager wifiManager;
 
         //reset saved settings
@@ -222,7 +238,7 @@ void loop() {
 			} else {
         // short press ended
         Serial.println("short press end");
-        Serial.println("version F 2017-01-07");
+
         relay_power( 1 - current_relay_power);
 
         if (mqtt_client.connected() ) {

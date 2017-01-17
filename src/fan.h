@@ -95,6 +95,9 @@ void relay_power(int aPower) {
   Serial.println(msg);
 
 digitalWrite(pinRelay, aPower ? RELAY_POWER_ON : RELAY_POWER_OFF );
-// digitalWrite(pinLED, 1 - aPower); // fan on = 1, but led 0 is lit
+
+if (pinLED >= 0) {
+  digitalWrite(pinLED, 1 - aPower); // fan on = 1, but led 0 is lit  
+}
 
 }

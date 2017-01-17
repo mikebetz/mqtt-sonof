@@ -129,9 +129,9 @@ int LED_status = 1 - LEDOn;
 int networkSafeMode = 0;
 
 
+#include <Ticker.h>
+Ticker ticker_control;
 
-//#include <Ticker.h>
-//Ticker ticker_control;
 
 long readTempLastMS = 0;
 long readTempLastMax = 10000;
@@ -150,6 +150,7 @@ float sampleTotalRH = 0;
 boolean my_publish(const char* topic, char* value);
 void relay_power(int power);
 void setFeaturesFromRole();
+void toggle_LED();
 
 // for main_include_h
 #endif
